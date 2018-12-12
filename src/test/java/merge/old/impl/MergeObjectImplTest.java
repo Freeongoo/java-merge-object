@@ -82,6 +82,32 @@ public class MergeObjectImplTest {
     }
 
     @Test
+    public void sumNumberFields_WhenAllFields() {
+        holderInfoTo.setName("MyName1");
+        holderInfoTo.setCount(3L);
+        holderInfoTo.setDiameter(1.);
+        holderInfoTo.setOverload(3F);
+        holderInfoTo.setSize(5);
+        holderInfoFrom.setName("MyName2");
+        holderInfoFrom.setCount(0L);
+        holderInfoFrom.setDiameter(2.);
+        holderInfoFrom.setOverload(-6.4F);
+        holderInfoFrom.setSize(3);
+
+        mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom);
+
+        // expected
+        HolderInfo expectedHolderInfo = new HolderInfo();
+        expectedHolderInfo.setName("MyName1");
+        expectedHolderInfo.setCount(3L);
+        expectedHolderInfo.setDiameter(3.);
+        expectedHolderInfo.setOverload(-3.4F);
+        expectedHolderInfo.setSize(8);
+
+        assertThat(expectedHolderInfo, equalTo(holderInfoTo));
+    }
+
+    @Test
     public void sumNumberFields_WhenNotAllNumberFieldsPassedInSet() {
         holderInfoTo.setCount(3L);
         holderInfoTo.setDiameter(1.);
