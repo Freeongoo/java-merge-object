@@ -26,14 +26,14 @@ public class MergeObjectImplTest {
     }
 
     @Test
-    public void sumNumberFields_WhenEmptyFields() {
+    public void sumNumberFields_WhenEmptyObjects() {
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, getAllNumberFields());
 
         assertThat(holderInfoTo, equalTo(new HolderInfo()));
     }
 
     @Test
-    public void sumNumberFields_WhenOnlyFromValues() {
+    public void sumNumberFields_WhenObjectToIsEmpty() {
         holderInfoFrom.setCount(156732453L);
         holderInfoFrom.setDiameter(123.);
         holderInfoFrom.setOverload(123F);
@@ -45,7 +45,7 @@ public class MergeObjectImplTest {
     }
 
     @Test
-    public void sumNumberFields_WhenOnlyToValues() {
+    public void sumNumberFields_WhenObjectFromIsEmpty() {
         holderInfoTo.setCount(156732453L);
         holderInfoTo.setDiameter(123.);
         holderInfoTo.setOverload(123F);
@@ -59,7 +59,7 @@ public class MergeObjectImplTest {
     }
 
     @Test
-    public void sumNumberFields_WhenAllNumberFieldsSummery() {
+    public void sumNumberFields_WhenAllNumberFieldsPassedInSet() {
         holderInfoTo.setCount(3L);
         holderInfoTo.setDiameter(1.);
         holderInfoTo.setOverload(3F);
@@ -82,7 +82,7 @@ public class MergeObjectImplTest {
     }
 
     @Test
-    public void sumNumberFields_WhenNotAllNumberFieldsSummery() {
+    public void sumNumberFields_WhenNotAllNumberFieldsPassedInSet() {
         holderInfoTo.setCount(3L);
         holderInfoTo.setDiameter(1.);
         holderInfoTo.setOverload(3F);
@@ -109,7 +109,7 @@ public class MergeObjectImplTest {
     }
 
     @Test
-    public void sumNumberFields_WhenTrySummeryNotNumberField() {
+    public void sumNumberFields_WhenTrySumNotNumberField() {
         holderInfoTo.setName("nameValue1");
         holderInfoFrom.setName("nameValue2");
 
@@ -126,7 +126,7 @@ public class MergeObjectImplTest {
     }
 
     @Test
-    public void sumNumberFields_WhenTrySummeryNotNumberField_WhenToNotSet() {
+    public void sumNumberFields_WhenTrySumNotNumberField_WhenObjectToIsEmpty() {
         holderInfoFrom.setName("nameValue2");
 
         HashSet<String> fields = new HashSet<>();
@@ -141,7 +141,7 @@ public class MergeObjectImplTest {
     }
 
     @Test
-    public void sumNumberFields_WhenExistNull() {
+    public void sumNumberFields_WhenExistNullInFieldsContent() {
         holderInfoTo.setCount(null);
         holderInfoTo.setDiameter(1.);
         holderInfoTo.setOverload(3F);
@@ -164,7 +164,7 @@ public class MergeObjectImplTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void sumNumberFields_WhenPassNotExistField() {
+    public void sumNumberFields_WhenPassedNotExistingFieldName() {
         holderInfoTo.setCount(null);
         holderInfoTo.setDiameter(1.);
         holderInfoTo.setOverload(3F);
