@@ -37,7 +37,7 @@ Also, if one of the fields contains null, then an exception will be thrown.
 
 ## Solution
 
-To solve this problem and get rid of code duplication, use our object MergeObject:
+To solve this problem and get rid of code duplication, use our class MergeObject:
 
 ```
 MergeObject mergeObject = new MergeObjectImpl();
