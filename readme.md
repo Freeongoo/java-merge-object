@@ -2,7 +2,7 @@
 
 ## Problem
 
-Often there is the task of merging the fields of two objects of the same class.
+Often there is the task of sum the numeric fields of two objects of the same class.
 
 As a rule, this problem is solved as follows:
 
@@ -33,7 +33,7 @@ class Cat {
 
 But this approach is very inconvenient. When increasing the number of fields - 
 increases duplication of the code. 
-Also, if one of the fields contains null, then an exception will be thrown.
+Also, if one of the fields contains `null`, then an exception will be thrown.
 
 ## Solution
 
@@ -44,5 +44,5 @@ MergeObject mergeObject = new MergeObjectImpl();
 Set<String> fields = new HashSet<>(Arrays.asList("age"));
 mergeObject.sumNumberFields(catTo, catFrom, fields);
 
-System.out.println(catTo.getAge());     // 5
+System.out.println(catTo.getAge()); // 5
 ```
