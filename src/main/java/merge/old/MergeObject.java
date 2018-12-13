@@ -10,6 +10,8 @@ public interface MergeObject {
      *
      * If the field is not numeric, it is ignored. No action taken
      *
+     * Numeric final fields are ignored.
+     *
      * @param objectTo Object
      * @param objectFrom Object
      * @param fieldNames Set<String>
@@ -19,8 +21,6 @@ public interface MergeObject {
     /**
      * This function summarizes all only numeric fields
      * and modifies the first transferred object.
-     *
-     * Numeric final fields are ignored.
      *
      * If the field is not numeric, it is ignored. No action taken
      *

@@ -5,6 +5,7 @@ import merge.old.MergeObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,8 @@ public class MergeObjectImpl implements MergeObject {
     }
 
     private void sumNumberField(String fieldName) {
+        if (isFieldFinal(fieldName)) return;
+
         Object fieldContentTo = getFieldContent(objectTo, fieldName);
         Object fieldContentFrom = getFieldContent(objectFrom, fieldName);
 
@@ -58,6 +61,12 @@ public class MergeObjectImpl implements MergeObject {
         }
 
         sumNumberFieldDependsOfType(fieldName, fieldContentTo, fieldContentFrom);
+    }
+
+    private boolean isFieldFinal(String fieldName) {
+        Optional<Field> field = getField(objectFrom, fieldName);
+        return field.map(f -> Modifier.isFinal(f.getModifiers()))
+                .orElse(false);
     }
 
     private boolean isFieldToIsNullAndFieldFromIsNumber(Object fieldContentTo, Object fieldContentFrom) {

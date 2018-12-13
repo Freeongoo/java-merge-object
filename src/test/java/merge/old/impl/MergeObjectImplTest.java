@@ -226,6 +226,12 @@ public class MergeObjectImplTest {
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, fields);
     }
 
+    @Test
+    public void sumNumberFields_WhenPassedFinalNumberField() {
+        fields.add("serialVersionUID");
+        mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, fields);
+    }
+
     private Set<String> getAllNumberFields() {
         fields.add("count");
         fields.add("size");
