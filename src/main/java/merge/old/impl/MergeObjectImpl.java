@@ -17,6 +17,8 @@ public class MergeObjectImpl implements MergeObject {
 
     @Override
     public void sumNumberFields(Object objectTo, Object objectFrom, Set<String> fieldNames) {
+        if (objectTo == null || objectFrom == null) return;
+
         setObjects(objectTo, objectFrom);
 
         for (String fieldName: fieldNames) {

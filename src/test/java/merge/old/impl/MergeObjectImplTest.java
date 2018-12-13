@@ -18,11 +18,42 @@ public class MergeObjectImplTest {
     private HolderInfo holderInfoTo;
     private HolderInfo holderInfoFrom;
 
+    private Set<String> fields;
+
     @Before
     public void setUp() {
+        fields = new HashSet<>();
+
         mergeObject = new MergeObjectImpl();
         holderInfoTo = new HolderInfo();
         holderInfoFrom = new HolderInfo();
+    }
+
+    @Test
+    public void sumNumberFields_WhenPassedNulls() {
+        mergeObject.sumNumberFields(null, null, null);
+    }
+
+    @Test
+    public void sumNumberFields_WhenObjectFromIsNull() {
+        setNumericFieldsSomeData(holderInfoTo);
+
+        HolderInfo holderInfoClone = SerializationUtils.clone(holderInfoTo);
+
+        mergeObject.sumNumberFields(holderInfoTo, null, getAllNumberFields());
+
+        assertThat(holderInfoTo, equalTo(holderInfoClone));
+    }
+
+    @Test
+    public void sumNumberFields_WhenObjectToIsNull() {
+        setNumericFieldsSomeData(holderInfoFrom);
+
+        HolderInfo holderInfoClone = SerializationUtils.clone(holderInfoFrom);
+
+        mergeObject.sumNumberFields(null, holderInfoFrom, getAllNumberFields());
+
+        assertThat(holderInfoFrom, equalTo(holderInfoClone));
     }
 
     @Test
@@ -34,10 +65,7 @@ public class MergeObjectImplTest {
 
     @Test
     public void sumNumberFields_WhenObjectToIsEmpty() {
-        holderInfoFrom.setCount(156732453L);
-        holderInfoFrom.setDiameter(123.);
-        holderInfoFrom.setOverload(123F);
-        holderInfoFrom.setSize(55);
+        setNumericFieldsSomeData(holderInfoFrom);
 
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, getAllNumberFields());
 
@@ -46,10 +74,7 @@ public class MergeObjectImplTest {
 
     @Test
     public void sumNumberFields_WhenObjectFromIsEmpty() {
-        holderInfoTo.setCount(156732453L);
-        holderInfoTo.setDiameter(123.);
-        holderInfoTo.setOverload(123F);
-        holderInfoTo.setSize(55);
+        setNumericFieldsSomeData(holderInfoTo);
 
         HolderInfo holderInfoClone = SerializationUtils.clone(holderInfoTo);
 
@@ -139,9 +164,7 @@ public class MergeObjectImplTest {
         holderInfoTo.setName("nameValue1");
         holderInfoFrom.setName("nameValue2");
 
-        HashSet<String> fields = new HashSet<>();
         fields.add("name");
-
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, fields);
 
         // expected
@@ -155,9 +178,7 @@ public class MergeObjectImplTest {
     public void sumNumberFields_WhenTrySumNotNumberField_WhenObjectToIsEmpty() {
         holderInfoFrom.setName("nameValue2");
 
-        HashSet<String> fields = new HashSet<>();
         fields.add("name");
-
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, fields);
 
         // expected
@@ -171,11 +192,11 @@ public class MergeObjectImplTest {
         holderInfoTo.setCount(null);
         holderInfoTo.setDiameter(1.);
         holderInfoTo.setOverload(3F);
-        holderInfoTo.setSize(5);
+        holderInfoTo.setSize(null);
         holderInfoFrom.setCount(0L);
         holderInfoFrom.setDiameter(null);
         holderInfoFrom.setOverload(-6.4F);
-        holderInfoFrom.setSize(3);
+        holderInfoFrom.setSize(null);
 
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, getAllNumberFields());
 
@@ -184,7 +205,7 @@ public class MergeObjectImplTest {
         expectedHolderInfo.setCount(0L);
         expectedHolderInfo.setDiameter(1.);
         expectedHolderInfo.setOverload(-3.4F);
-        expectedHolderInfo.setSize(8);
+        expectedHolderInfo.setSize(null);
 
         assertThat(expectedHolderInfo, equalTo(holderInfoTo));
     }
@@ -200,20 +221,24 @@ public class MergeObjectImplTest {
         holderInfoFrom.setOverload(-6.4F);
         holderInfoFrom.setSize(3);
 
-        HashSet<String> fields = new HashSet<>();
         fields.add("notExistFieldName");
 
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, fields);
     }
 
     private Set<String> getAllNumberFields() {
-        Set<String> fields = new HashSet<>();
-
         fields.add("count");
         fields.add("size");
         fields.add("diameter");
         fields.add("overload");
 
         return fields;
+    }
+
+    private void setNumericFieldsSomeData(HolderInfo holderInfo) {
+        holderInfo.setCount(156732453L);
+        holderInfo.setDiameter(123.);
+        holderInfo.setOverload(123F);
+        holderInfo.setSize(55);
     }
 }
