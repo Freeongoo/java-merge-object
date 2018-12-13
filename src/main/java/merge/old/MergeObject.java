@@ -19,7 +19,7 @@ public interface MergeObject {
     void sumNumberFields(Object objectTo, Object objectFrom, Set<String> fieldNames);
 
     /**
-     * This function summarizes all only numeric fields
+     * This function summarizes all only numeric fields (without final)
      * and modifies the first transferred object.
      *
      * If the field is not numeric, it is ignored. No action taken
