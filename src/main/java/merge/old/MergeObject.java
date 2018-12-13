@@ -12,7 +12,7 @@ public interface MergeObject {
      *
      * @param objectTo Object
      * @param objectFrom Object
-     * @param fieldNames String
+     * @param fieldNames Set<String>
      */
     void sumNumberFields(Object objectTo, Object objectFrom, Set<String> fieldNames);
 

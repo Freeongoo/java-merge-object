@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * Tests: @see <a href="https://github.com/Freeongoo/reflection-utils">reflection-utils</a>
+ */
 public class ReflectionUtils {
 
     private static final String GETTER_PREFIX = "get";
