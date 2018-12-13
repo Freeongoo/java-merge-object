@@ -44,5 +44,5 @@ MergeObject mergeObject = new MergeObjectImpl();
 Set<String> fields = new HashSet<>(Arrays.asList("age"));
 mergeObject.sumNumberFields(catTo, catFrom, fields);
 
-System.out.println(catTo.getAge());
+System.out.println(catTo.getAge());     // 5
 ```
