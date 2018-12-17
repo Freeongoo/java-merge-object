@@ -13,6 +13,8 @@ public class HolderInfo implements Serializable {
     private Double diameter;
     private Float overload;
 
+    private static String staticStr;
+
     public String getName() {
         return name;
     }
@@ -51,6 +53,14 @@ public class HolderInfo implements Serializable {
 
     public void setOverload(Float overload) {
         this.overload = overload;
+    }
+
+    public static String getStaticStr() {
+        return staticStr;
+    }
+
+    public static void setStaticStr(String staticStr) {
+        HolderInfo.staticStr = staticStr;
     }
 
     @Override

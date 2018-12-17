@@ -7,6 +7,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static merge.old.utils.ReflectionUtils.*;
@@ -29,16 +30,20 @@ public class MergeObjectImpl implements MergeObject {
 
     @Override
     public void sumNumberFields(Object objectTo, Object objectFrom) {
-        Set<String> allFieldNames = getNotFinalFieldNames(objectTo);
-        sumNumberFields(objectTo, objectFrom, allFieldNames);
+        Set<String> fields = getNotFinalAnStaticFieldNames(objectTo);
+        sumNumberFields(objectTo, objectFrom, fields);
     }
 
-    private Set<String> getNotFinalFieldNames(Object objectTo) {
+    private Set<String> getNotFinalAnStaticFieldNames(Object objectTo) {
         Field[] allFields = getAllFields(objectTo.getClass());
         return Arrays.stream(allFields)
-                .filter(el -> !Modifier.isFinal(el.getModifiers()))
+                .filter(getNotStaticAndFinalPredicate())
                 .map(Field::getName)
                 .collect(Collectors.toSet());
+    }
+
+    private Predicate<Field> getNotStaticAndFinalPredicate() {
+        return el -> !Modifier.isFinal(el.getModifiers()) && !Modifier.isStatic(el.getModifiers());
     }
 
     private void setObjects(Object objectTo, Object objectFrom) {

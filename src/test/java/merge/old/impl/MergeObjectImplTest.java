@@ -108,6 +108,8 @@ public class MergeObjectImplTest {
 
     @Test
     public void sumNumberFields_WhenAllFields() {
+        HolderInfo.setStaticStr("some static");
+
         holderInfoTo.setName("MyName1");
         holderInfoTo.setCount(3L);
         holderInfoTo.setDiameter(1.);

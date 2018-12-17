@@ -10,7 +10,7 @@ public interface MergeObject {
      *
      * If the field is not numeric, it is ignored. No action taken
      *
-     * Numeric final fields are ignored.
+     * Numeric final and static fields are ignored.
      *
      * @param objectTo Object
      * @param objectFrom Object
@@ -19,7 +19,7 @@ public interface MergeObject {
     void sumNumberFields(Object objectTo, Object objectFrom, Set<String> fieldNames);
 
     /**
-     * This function summarizes all only numeric fields (without final)
+     * This function summarizes all only numeric fields (without final and static)
      * and modifies the first transferred object.
      *
      * If the field is not numeric, it is ignored. No action taken
