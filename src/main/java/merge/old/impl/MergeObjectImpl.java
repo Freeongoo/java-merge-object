@@ -4,6 +4,7 @@ import merge.old.MergeObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
@@ -18,10 +19,11 @@ public class MergeObjectImpl implements MergeObject {
     private Object objectFrom;
 
     @Override
-    public void sumNumberFields(Object objectTo, Object objectFrom, Set<String> fieldNames) {
+    public <T> void sumNumberFields(T objectTo, T objectFrom, Set<String> fieldNames) {
         if (objectTo == null || objectFrom == null) return;
 
         setObjects(objectTo, objectFrom);
+        validateObjectType();
 
         for (String fieldName: fieldNames) {
             sumNumberField(fieldName);
@@ -29,9 +31,14 @@ public class MergeObjectImpl implements MergeObject {
     }
 
     @Override
-    public void sumNumberFields(Object objectTo, Object objectFrom) {
+    public <T> void sumNumberFields(T objectTo, T objectFrom) {
         Set<String> fields = getNotFinalAnStaticFieldNames(objectTo);
         sumNumberFields(objectTo, objectFrom, fields);
+    }
+
+    private void validateObjectType() {
+        if (!objectFrom.getClass().equals(objectTo.getClass()))
+            throw new InvalidParameterException("Transferred to different types of objects. Please use objects of the same class.");
     }
 
     private Set<String> getNotFinalAnStaticFieldNames(Object objectTo) {

@@ -1,11 +1,13 @@
 package merge.old.impl;
 
 import data.HolderInfo;
+import data.OtherInfo;
 import merge.old.MergeObject;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.security.InvalidParameterException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -232,6 +234,34 @@ public class MergeObjectImplTest {
     public void sumNumberFields_WhenPassedFinalNumberField() {
         fields.add("serialVersionUID");
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, fields);
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    public void sumNumberFields_WhenPassedOtherFromObject() {
+        mergeObject.sumNumberFields(holderInfoTo, new Object(), fields);
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    public void sumNumberFields_WhenPassedObjectFromException() {
+        mergeObject.sumNumberFields(holderInfoTo, new StackOverflowError(), fields);
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    public void sumNumberFields_WhenPassedOtherFromOtherObject() {
+        setNumericFieldsSomeData(holderInfoTo);
+
+        OtherInfo otherInfo = new OtherInfo();
+        otherInfo.setSomeName("str");
+        otherInfo.setSize(100);
+
+        // expected
+        HolderInfo expectedHolderInfo = new HolderInfo();
+        expectedHolderInfo.setCount(156732453L);
+        expectedHolderInfo.setDiameter(123.);
+        expectedHolderInfo.setOverload(123F);
+        expectedHolderInfo.setSize(155);
+
+        mergeObject.sumNumberFields(holderInfoTo, otherInfo, fields);
     }
 
     private Set<String> getAllNumberFields() {

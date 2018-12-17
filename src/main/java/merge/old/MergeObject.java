@@ -16,7 +16,7 @@ public interface MergeObject {
      * @param objectFrom the object that will be used to get the field values
      * @param fieldNames set of field names to perform arithmetic addition
      */
-    void sumNumberFields(Object objectTo, Object objectFrom, Set<String> fieldNames);
+    <T> void sumNumberFields(T objectTo, T objectFrom, Set<String> fieldNames);
 
     /**
      * This function summarizes all only numeric fields (without final and static)
@@ -27,5 +27,5 @@ public interface MergeObject {
      * @param objectTo object where added fields will be summarize
      * @param objectFrom the object that will be used to get the field values
      */
-    void sumNumberFields(Object objectTo, Object objectFrom);
+    <T> void sumNumberFields(T objectTo, T objectFrom);
 }
