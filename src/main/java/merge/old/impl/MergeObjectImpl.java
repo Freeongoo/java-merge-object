@@ -38,7 +38,7 @@ public class MergeObjectImpl implements MergeObject {
 
     private void validateObjectType() {
         if (!objectFrom.getClass().equals(objectTo.getClass()))
-            throw new InvalidParameterException("Transferred to different types of objects. Please use objects of the same class.");
+            throw new IllegalArgumentException("Transferred to different types of objects. Please use objects of the same class.");
     }
 
     private Set<String> getNotFinalAnStaticFieldNames(Object objectTo) {

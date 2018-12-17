@@ -7,7 +7,6 @@ import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.security.InvalidParameterException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -214,7 +213,7 @@ public class MergeObjectImplTest {
         assertThat(expectedHolderInfo, equalTo(holderInfoTo));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void sumNumberFields_WhenPassedNotExistingFieldName() {
         holderInfoTo.setCount(null);
         holderInfoTo.setDiameter(1.);
@@ -236,17 +235,17 @@ public class MergeObjectImplTest {
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, fields);
     }
 
-    @Test(expected = InvalidParameterException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void sumNumberFields_WhenPassedOtherFromObject() {
         mergeObject.sumNumberFields(holderInfoTo, new Object(), fields);
     }
 
-    @Test(expected = InvalidParameterException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void sumNumberFields_WhenPassedObjectFromException() {
         mergeObject.sumNumberFields(holderInfoTo, new StackOverflowError(), fields);
     }
 
-    @Test(expected = InvalidParameterException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void sumNumberFields_WhenPassedOtherFromOtherObject() {
         setNumericFieldsSomeData(holderInfoTo);
 
