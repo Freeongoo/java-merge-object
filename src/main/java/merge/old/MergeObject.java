@@ -12,9 +12,9 @@ public interface MergeObject {
      *
      * Numeric final and static fields are ignored.
      *
-     * @param objectTo Object
-     * @param objectFrom Object
-     * @param fieldNames Set<String>
+     * @param objectTo object where added fields will be summarize
+     * @param objectFrom the object that will be used to get the field values
+     * @param fieldNames set of field names to perform arithmetic addition
      */
     void sumNumberFields(Object objectTo, Object objectFrom, Set<String> fieldNames);
 
@@ -24,8 +24,8 @@ public interface MergeObject {
      *
      * If the field is not numeric, it is ignored. No action taken
      *
-     * @param objectTo Object
-     * @param objectFrom Object
+     * @param objectTo object where added fields will be summarize
+     * @param objectFrom the object that will be used to get the field values
      */
     void sumNumberFields(Object objectTo, Object objectFrom);
 }
