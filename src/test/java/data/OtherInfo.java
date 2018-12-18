@@ -1,8 +1,12 @@
 package data;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class OtherInfo {
+public class OtherInfo implements Serializable {
+
+    private static final long serialVersionUID = -8803989584492959182L;
+
     private String someName;
     private Integer size;
 
