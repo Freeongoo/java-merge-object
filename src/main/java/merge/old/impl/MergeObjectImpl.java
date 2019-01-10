@@ -86,16 +86,24 @@ public class MergeObjectImpl implements MergeObject {
 
     private void sumNumberFieldDependsOfType(String fieldName, Object fieldContentTo, Object fieldContentFrom) {
         if (fieldContentTo instanceof Integer) {
-            setFieldContent(objectTo, fieldName, (int) fieldContentTo + (int) fieldContentFrom);
+            int value = (int)fieldContentTo + (int)fieldContentFrom;
+            setFieldContent(objectTo, fieldName, value);
+        }
+        else if (fieldContentTo instanceof Short) {
+            short value = (short)((short) fieldContentTo + (short)fieldContentFrom);
+            setFieldContent(objectTo, fieldName, value);
         }
         else if (fieldContentTo instanceof Long) {
-            setFieldContent(objectTo, fieldName, (long) fieldContentTo + (long) fieldContentFrom);
+            long value = (long)fieldContentTo + (long)fieldContentFrom;
+            setFieldContent(objectTo, fieldName, value);
         }
         else if (fieldContentTo instanceof Double) {
-            setFieldContent(objectTo, fieldName, (double) fieldContentTo + (double) fieldContentFrom);
+            double value = (double)fieldContentTo + (double)fieldContentFrom;
+            setFieldContent(objectTo, fieldName, value);
         }
         else if (fieldContentTo instanceof Float) {
-            setFieldContent(objectTo, fieldName, (float) fieldContentTo + (float) fieldContentFrom);
+            float value = (float)fieldContentTo + (float)fieldContentFrom;
+            setFieldContent(objectTo, fieldName, value);
         }
     }
 }

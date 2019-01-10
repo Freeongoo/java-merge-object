@@ -230,6 +230,22 @@ public class MergeObjectImplTest {
     }
 
     @Test
+    public void sumNumberFields_WhenShortField() {
+        holderInfoTo.setSmallNum((short)2);
+        holderInfoFrom.setSmallNum((short)3);
+
+        fields.add("smallNum");
+
+        mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, fields);
+
+        // expected
+        HolderInfo expectedHolderInfo = new HolderInfo();
+        expectedHolderInfo.setSmallNum((short)5);
+
+        assertThat(expectedHolderInfo, equalTo(holderInfoTo));
+    }
+
+    @Test
     public void sumNumberFields_WhenPassedFinalNumberField() {
         fields.add("serialVersionUID");
         mergeObject.sumNumberFields(holderInfoTo, holderInfoFrom, fields);

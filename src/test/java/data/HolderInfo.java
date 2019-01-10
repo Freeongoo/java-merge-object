@@ -12,6 +12,7 @@ public class HolderInfo implements Serializable {
     private Integer size;
     private Double diameter;
     private Float overload;
+    private Short smallNum;
 
     private static String staticStr;
 
@@ -55,6 +56,14 @@ public class HolderInfo implements Serializable {
         this.overload = overload;
     }
 
+    public Short getSmallNum() {
+        return smallNum;
+    }
+
+    public void setSmallNum(Short smallNum) {
+        this.smallNum = smallNum;
+    }
+
     public static String getStaticStr() {
         return staticStr;
     }
@@ -67,18 +76,26 @@ public class HolderInfo implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         HolderInfo that = (HolderInfo) o;
-        return Objects.equals(name, that.name) &&
-                Objects.equals(count, that.count) &&
-                Objects.equals(size, that.size) &&
-                Objects.equals(diameter, that.diameter) &&
-                Objects.equals(overload, that.overload);
+
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (count != null ? !count.equals(that.count) : that.count != null) return false;
+        if (size != null ? !size.equals(that.size) : that.size != null) return false;
+        if (diameter != null ? !diameter.equals(that.diameter) : that.diameter != null) return false;
+        if (overload != null ? !overload.equals(that.overload) : that.overload != null) return false;
+        return smallNum != null ? smallNum.equals(that.smallNum) : that.smallNum == null;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(name, count, size, diameter, overload);
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (count != null ? count.hashCode() : 0);
+        result = 31 * result + (size != null ? size.hashCode() : 0);
+        result = 31 * result + (diameter != null ? diameter.hashCode() : 0);
+        result = 31 * result + (overload != null ? overload.hashCode() : 0);
+        result = 31 * result + (smallNum != null ? smallNum.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -89,6 +106,7 @@ public class HolderInfo implements Serializable {
         sb.append(", size=").append(size);
         sb.append(", diameter=").append(diameter);
         sb.append(", overload=").append(overload);
+        sb.append(", smallNum=").append(smallNum);
         sb.append('}');
         return sb.toString();
     }
